@@ -4,9 +4,7 @@ from django.urls import reverse, resolve
 
 from .views import HomePageView
 # Create your tests here.
-from django.urls import reverse, resolve
-from .forms import CustomUserCreationForm
-from .views import SignupPageView
+from django.urls import reverse
 
 
 class HomePageTests(SimpleTestCase):
@@ -33,15 +31,3 @@ class HomePageTests(SimpleTestCase):
         self.assertEqual(view.func.__name__, HomePageView.as_view().__name__
                          )
 
-
-class SignupPageTests(TestCase):
-    def setUp(self):
-        url = reverse('signup')
-        self.response = self.client.get(url)
-
-    def test_signup_template(self):
-        self.assertEqual(self.response.status_code, 200)
-        self.assertTemplateUsed(self.response, 'signup.html')
-        self.assertContains(self.response, 'Sign Up')
-        self.assertNotContains(
-            self.response, 'Hi there! I should not be on the page.')
